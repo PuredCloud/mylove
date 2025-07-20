@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+        }
+
+        /* Floating Hearts Animation */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff69b4;
+            opacity: 0.7;
+            animation: floatHearts 6s infinite linear;
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Welcome Page */
+        .welcome-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            color: #8b5a7a;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .love-button {
+            background: linear-gradient(45deg, #ff6b9d, #ff8fab);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 1s both;
+            font-family: 'Georgia', serif;
+        }
+
+        .love-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.6);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Page */
+        .main-page {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #d63384;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #8b5a7a;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Photo Slideshow */
+        .slideshow-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .slide-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, #ffb3d9, #ffd9ec);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #8b5a7a;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slideshow-nav {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .nav-btn {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #ff8fab;
+            transform: scale(1.05);
+        }
+
+        /* Music Section */
+        .music-section {
+            text-align: center;
+        }
+
+        .music-player {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .music-controls {
+            margin-top: 1rem;
+        }
+
+        .music-btn {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            background: #b02a5b;
+            transform: scale(1.05);
+        }
+
+        /* Message Section */
+        .message-area {
+            margin-top: 2rem;
+        }
+
+        .editable-message {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px dashed #ff6b9d;
+            border-radius: 15px;
+            padding: 1.5rem;
+            min-height: 150px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #8b5a7a;
+            cursor: text;
+            transition: all 0.3s ease;
+        }
+
+        .editable-message:focus {
+            outline: none;
+            border-color: #d63384;
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #d63384;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff8fab;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-message {
+                font-size: 1.2rem;
+            }
+            
+            .love-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="hearts" id="hearts"></div>
+
+    <!-- Welcome Page -->
+    <div class="welcome-page" id="welcomePage">
+        <h1 class="welcome-title">For My Beautiful YukiSan 💕</h1>
+        <p class="welcome-message">
+            I miss you so much, my love. I wish you were here with me, so I made you this special website to show you how much you mean to me. Every moment without you feels incomplete, but this little space is filled with all my love for you.
+        </p>
+        <button class="love-button" onclick="showMainPage()">Click Here Love ❤️</button>
+    </div>
+
+    <!-- Main Page -->
+    <div class="main-page" id="mainPage">
+        <button class="back-btn" onclick="showWelcomePage()">← Back</button>
+        
+        <div class="page-header">
+            <h1 class="page-title">You Are My Everything 💖</h1>
+        </div>
+
+        <!-- Photo Slideshow Section -->
+        <div class="content-section">
+            <h2 class="section-title">You're Beautiful My Love 💖</h2>
+            <div class="slideshow-container">
+                <div class="slide active">
+                    <div class="slide-placeholder">
+                        💕 We are so cute here 💕<br>
+                        <img src="photos1.jpg" alt="My Love">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-placeholder">
+                        🌹 My favorite Picture of You 🌹<br>
+                        <img src="photos3.jpg" alt="My Love">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-placeholder">
+                        ✨ You're so Pretty Here ✨<br>
+                       <img src="photos2.jpg" alt="My Love">
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow-nav">
+                <button class="nav-btn" onclick="changeSlide(-1)">❮ Previous</button>
+                <button class="nav-btn" onclick="changeSlide(1)">Next ❯</button>
+            </div>
+        </div>
+
+        <!-- Music Section -->
+        <div class="content-section">
+            <h2 class="section-title">You're my IRIS🎵</h2>
+            <div class="music-section">
+                <div class="music-player">
+                    <audio id="loveAudio" controls style="width: 100%; margin-top: 1rem;">
+                        <source src="iris2.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="music-controls">
+                    <button class="music-btn" onclick="playMusic()">▶️ Play </button>
+                    <button class="music-btn" onclick="pauseMusic()">⏸️ Pause </button>
+                </div>
+                <p style="color: #8b5a7a; margin-top: 1rem; font-style: italic;">
+                    "I dedicated this song to you, my love. You're my Iris. 💕"
+                </p>
+            </div>
+        </div>
+
+        <!-- Message Section -->
+        <div class="content-section">
+            <h2 class="section-title">My Love Letter for my Beautiful Yukiisan 💌</h2>
+            <div class="message-area">
+                <div class="editable-message" contenteditable="true">
+                    Dear Yukiisan,<br>
+<br>
+You're the best person I know. You made my life so happy and colorful. You're the one who saved me from my monochrome world, and there are no words in this world to express how thankful I am for you. I’m so lucky to have you in my life.
+
+I miss you so much, and honestly, I hate being far from you. If there was a way for me to visit you every day, I would. But right now, I’m still in my college years, and I’m sorry I can’t give you much yet. I can’t afford gifts or fancy things today, but someday, when I graduate and finally build the life I’m working for, I’ll treat you the way you truly deserve. I’ll give you the world, I promise.
+
+For now, all I can offer is my love, my care, my loyalty, my time, my patience, and every part of my heart. I’ll be here—cheering for you, missing you, and loving you more each day.
+
+Please wait for me, my love. I’m yours, always.<br>
+<br>
+Yours forever,<br>
+Dinoo 💕
+                </div>
+            </div>
+        </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Create hearts continuously
+        setInterval(createHeart, 800);
+
+        // Page navigation
+        function showMainPage() {
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        }
+
+        function showWelcomePage() {
+            document.getElementById('welcomePage').style.display = 'flex';
+            document.getElementById('mainPage').style.display = 'none';
+        }
+
+        // Slideshow functionality
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Auto-advance slideshow
+        setInterval(() => {
+            changeSlide(1);
+        }, 4000);
+
+        // Music controls
+        function playMusic() {
+            const audio = document.getElementById('loveAudio');
+            audio.play().catch(e => {
+                alert('Please add your music file (your-song.mp3) to play our song! 🎵');
+            });
+        }
+
+        function pauseMusic() {
+            const audio = document.getElementById('loveAudio');
+            audio.pause();
+        }
+
+        // Save edited content to local memory (since localStorage isn't available)
+        let savedMessages = {};
+        
+        document.querySelectorAll('.editable-message').forEach((element, index) => {
+            element.addEventListener('blur', function() {
+                savedMessages[index] = this.innerHTML;
+            });
+            
+            element.addEventListener('focus', function() {
+                if (this.innerHTML.includes('Click here to write') || this.innerHTML.includes('List all the things')) {
+                    this.innerHTML = '';
+                    this.style.color = '#8b5a7a';
+                }
+            });
+        });
+
+        // Restore messages when page loads
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.editable-message').forEach((element, index) => {
+                if (savedMessages[index]) {
+                    element.innerHTML = savedMessages[index];
+                }
+            });
+        });
+
+        // Add some sparkle effects when clicking
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('love-button') || e.target.classList.contains('nav-btn') || e.target.classList.contains('music-btn')) {
+                createSparkle(e.pageX, e.pageY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.animation = 'sparkleAnimation 1s ease-out forwards';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        // Add sparkle animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleAnimation {
+                0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+                100% { transform: scale(0) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
